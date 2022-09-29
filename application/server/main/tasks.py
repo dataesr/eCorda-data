@@ -1,4 +1,4 @@
-import sys, time
+import sys, time, os
 
 from eCorda_code.new_date import NewDate
 from eCorda_code.last_date import lastDate, lastDate_update
@@ -9,11 +9,13 @@ from application.server.main.logger import get_logger
 logger = get_logger(__name__)
 
 def create_task_eCorda(args: dict) -> None:
-    logger.debug(f'Creating task with args {args}')
+    # logger.debug(f'Creating task with args {args}')
 
     DATE=time.strftime('%Y-%m-%d')
+    URL=os.environ.get('https://api.tech.ec.europa.eu/ecorda_api/v5/')
 
     new_date=NewDate(args.get('framework', 'url_ue'))
+    logger.debug(f"NEW_DATE:{new_date}")
     last_date=lastDate()
 
     if last_date==new_date:

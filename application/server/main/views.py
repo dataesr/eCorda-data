@@ -29,7 +29,7 @@ def run_task_harvest():
 @main_blueprint.route('/tasks/<task_id>', methods=['GET'])
 def get_status(task_id):
     with Connection(redis.from_url(current_app.config['REDIS_URL'])):
-        q = Queue('pdf-harvester')
+        q = Queue('eCorda-data')
         task = q.fetch_job(task_id)
     if task:
         response_object = {

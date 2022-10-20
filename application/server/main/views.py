@@ -15,16 +15,14 @@ def home():
     return render_template('home.html')
 
 
-@main_blueprint.route('/harvest', methods=['POST'])
+@main_blueprint.route('/harvest', methods=['GET'])
 def run_task_harvest():
     """
     Harvest data from unpaywall
     """
-    args = request.get_json(force=True)
-    
     with Connection(redis.from_url(current_app.config['REDIS_URL'])):
         q = Queue(name='eCorda-data', default_timeout=default_timeout)
-        task = q.enqueue(create_task_eCorda, args)
+        task = q.enqueue(create_task_eCorda)
     response_object = {'status': 'success', 'data': {'task_id': task.get_id()}}
     return jsonify(response_object), 202
 

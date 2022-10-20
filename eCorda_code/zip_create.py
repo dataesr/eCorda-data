@@ -1,9 +1,9 @@
 from os.path import basename
 import zipfile as zf, pathlib, os
 
-def zip_create(date):   
+def zip_create(zip_filename):
 #create a ZipFile object
-    with zf.ZipFile('/eCorda_data/' + f"HE_{date}.zip", 'w') as zipObj:
+    with zf.ZipFile(zip_filename, 'w') as zipObj:
 #Iterate over all the files in directory
         for folderName, subfolders, filenames in os.walk('/eCorda_data/'):
             for filename in filenames:

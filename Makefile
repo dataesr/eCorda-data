@@ -1,4 +1,4 @@
-DOCKER_IMAGE_NAME=dataesr/xxx-myapp
+DOCKER_IMAGE_NAME=dataesr/ecorda
 CURRENT_VERSION=$(shell cat application/__init__.py | cut -d "'" -f 2)
 
 test: unit

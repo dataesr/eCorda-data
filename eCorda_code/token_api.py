@@ -4,10 +4,9 @@ from application.server.main.logger import get_logger
 logger = get_logger(__name__)
 
 def get_token():
-    
     token_url = "https://api.tech.ec.europa.eu/token"
-    client_id = os.environ.get('client_id')
-    client_secret = os.environ.get('client_secret')
+    client_id = os.getenv('CLIENT_ID')
+    client_secret = os.getenv('CLIENT_SECRET')
     data = {'grant_type': 'client_credentials'}
     #logger.debug(f'client_id: {client_id} client_secret: {client_secret}')
     access_token_response = requests.post(token_url, data=data, verify=False, allow_redirects=False, auth=(client_id, client_secret))
@@ -19,8 +18,8 @@ def expire_token(token_lib):
 
     revoke_url = 'https://api.tech.ec.europa.eu/revoke'
     
-    data = {"client_id": os.environ.get('client_id'),
-            "client_secret": os.environ.get('client_secret'),
+    data = {"client_id": os.getenv('CLIENT_ID'),
+            "client_secret": os.getenv('CLIENT_SECRET'),
             "token": token_lib}
     token_revoke = requests.post(revoke_url, data=data, verify=False, allow_redirects=False)
 

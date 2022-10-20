@@ -37,8 +37,6 @@ def create_task_eCorda() -> None:
             'typeOfActions',
             'typeOfActionsAttributes']
 
-    LIST_DATA = ['projects/participants', 'topics']
-
     extraction_all('HORIZON', LIST_DATA, URL)
 
     filename_prefix = 'HE_'

@@ -22,9 +22,9 @@ def base_api(base=None, framework=None, url_ue=None):
             r1 = requests.get(url1, headers=get_headers())
             try:
                 result += r1.json()['data']
-                logger.debug(f"end request {time.strftime('%H:%M:%S')}") 
-                return result
             except:
                 logger.debug(f"problem : {base}, end request {time.strftime('%H:%M:%S')}")   
 
+        logger.debug(f"end request {time.strftime('%H:%M:%S')}") 
+        return result
 

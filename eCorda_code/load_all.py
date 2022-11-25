@@ -1,4 +1,4 @@
-import os
+import os, json
 import pandas as pd
 from eCorda_code.api import base_api
 from application.server.main.logger import get_logger
@@ -14,8 +14,20 @@ def extraction_all(framework, liste_datas, url_ue):
         result = base_api(base=b, framework=framework, url_ue=url_ue)
 
         if result:
-            df = pd.json_normalize(result)
 
+            b = b.replace("/", "_")
+
+            # create Json    
+            unique = []
+            [unique.append(r) for r in result if r not in unique]
+            filename = f'/eCorda_data/{b}.json'    
+            with open(filename, 'w') as file:
+                file.write(json.dumps(unique, indent=4))
+            datas_volume.append([b, 'json', len(unique)])
+            counter+=1
+
+            # créate CSV
+            df = pd.json_normalize(result)
             list_in_df = df.applymap(lambda x: isinstance(x, list)).all()
             if list_in_df.index[list_in_df].tolist():
                 for e in list_in_df.index[list_in_df].tolist():
@@ -23,15 +35,13 @@ def extraction_all(framework, liste_datas, url_ue):
                         df.at[i , e] = ";".join(str(k) for k in row[e] if k is not None)
 
             df = df.drop_duplicates()
-            b = b.replace("/", "_")
-
-            datas_volume.append([b, len(df)])
             filename = f'/eCorda_data/{b}.csv'
             df.to_csv(filename, sep=";", index=False, na_rep="", encoding="UTF-8")
+            datas_volume.append([b, 'csv',len(df)])
             logger.debug(f'writing {filename}')
             if 'extractionDate' in filename:
                 logger.debug(df.to_dict(orient='records'))
             counter+=1
 
-    pd.DataFrame(datas_volume, columns=['data', 'observations']).to_csv("/eCorda_data/datas_volume.csv", sep=";", index=False, na_rep="", encoding="UTF-8")
-    logger.debug(f"datas in csv:{counter}")
+    pd.DataFrame(datas_volume, columns=['data', 'format', 'observations']).to_csv("/eCorda_data/datas_volume.csv", sep=";", index=False, na_rep="", encoding="UTF-8")
+    logger.debug(f"datas loaded:{counter}")

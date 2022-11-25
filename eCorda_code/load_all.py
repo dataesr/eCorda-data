@@ -9,6 +9,7 @@ os.system(f'mkdir -p /eCorda_data')
 
 def extraction_all(framework, liste_datas, url_ue):
     counter=0
+    datas_volume=[]
     for b in liste_datas:   
         result = base_api(base=b, framework=framework, url_ue=url_ue)
 
@@ -23,10 +24,14 @@ def extraction_all(framework, liste_datas, url_ue):
 
             df = df.drop_duplicates()
             b = b.replace("/", "_")
+
+            datas_volume.append([b, len(df)])
             filename = f'/eCorda_data/{b}.csv'
             df.to_csv(filename, sep=";", index=False, na_rep="", encoding="UTF-8")
             logger.debug(f'writing {filename}')
             if 'extractionDate' in filename:
                 logger.debug(df.to_dict(orient='records'))
             counter+=1
+
+    pd.DataFrame(datas_volume, columns=['data', 'observations']).to_csv("/eCorda_data/datas_volume.csv", sep=";", index=False, na_rep="", encoding="UTF-8")
     logger.debug(f"datas in csv:{counter}")

@@ -5,19 +5,18 @@ from application.server.main.logger import get_logger
 logger = get_logger(__name__)
 
 def base_api(base=None, framework=None, url_ue=None):
-    SIZE=str(1000)
-    url = url_ue + base + "?framework=" + framework + "&size=" + SIZE
+    url = url_ue + base + "?framework=" + framework
     r = requests.get(url, headers=get_headers())
 
     if r:
         globals()['tot_records'] = r.json().get("metadata").get("totalRecords")
-        page_max = r.json().get("metadata").get("lastPage")
+        page_max = r.json().get("metadata").get("lastPage") + 1
 
         logger.debug(f'****{base} -> totalRecords:{r.json().get("metadata").get("totalRecords")}, totalPage:{page_max}, start request:{time.strftime("%H:%M:%S")}')
 
         result = []    
         for page in range(0, page_max): 
-            url1 = url_ue + base + "?framework=" + framework + "&page=" + str(page) + "&size=" + SIZE
+            url1 = url_ue + base + "?framework=" + framework + "&page=" + str(page)
             time.sleep(0.2)
             r1 = requests.get(url1, headers=get_headers())
             try:

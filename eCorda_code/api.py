@@ -1,8 +1,14 @@
 import json, requests, time
 from eCorda_code.token_api import get_headers
 from application.server.main.logger import get_logger
+from retry import retry
 
 logger = get_logger(__name__)
+
+@retry(delay=50, tries=25)
+def get_page(url):
+    r = requests.get(url, headers=get_headers())
+    return r.json()['data']
 
 def base_api(base=None, framework=None, url_ue=None):
     SIZE=500
@@ -19,9 +25,8 @@ def base_api(base=None, framework=None, url_ue=None):
         for page in range(0, page_max + 1): 
             url1 = url_ue + base + "?framework=" + framework + "&page=" + str(page) + "&size=" + SIZE
             time.sleep(0.2)
-            r1 = requests.get(url1, headers=get_headers())
             try:
-                result += r1.json()['data']
+                result += get_page(url1)
                 logger.debug(f'{page}', end=',')
             except:
                 logger.debug(f"problem : {base}, end request {time.strftime('%H:%M:%S')}")   

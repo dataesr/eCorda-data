@@ -10,6 +10,7 @@ def get_page(url):
     r = requests.get(url, headers=get_headers())
     return r.json()['data']
 
+
 def base_api(base=None, framework=None, url_ue=None):
     SIZE=str(500)
     url = url_ue + base + "?framework=" + framework + "&size=" + SIZE
@@ -19,7 +20,7 @@ def base_api(base=None, framework=None, url_ue=None):
         globals()['tot_records'] = r.json().get("metadata").get("totalRecords")
         page_max = r.json().get("metadata").get("lastPage")
 
-        logger.debug(f'****{base} -> totalRecords:{r.json().get("metadata").get("totalRecords")}, totalPage:{page_max}, start request:{time.strftime("%H:%M:%S")}')
+        logger.debug(f'***{base} -> totalRecords:{r.json().get("metadata").get("totalRecords")}, totalPage:{page_max}, start request:{time.strftime("%H:%M:%S")}')
 
         result = []    
         for page in range(0, page_max + 1): 
@@ -31,5 +32,5 @@ def base_api(base=None, framework=None, url_ue=None):
             except:
                 logger.debug(f"problem : {base}, end request {time.strftime('%H:%M:%S')}")   
 
-        logger.debug(f"last page:{page+1}, last page expected:{page_max}, end request {time.strftime('%H:%M:%S')}") 
+        logger.debug(f"***{page_max-page} pages de différence, end request {time.strftime('%H:%M:%S')}***") 
         return result

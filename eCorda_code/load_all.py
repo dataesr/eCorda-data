@@ -46,4 +46,4 @@ def extraction_all(framework, liste_datas, url_ue):
 
     No_load_datas = [i for i in liste_datas if i not in set([x[0] for x in datas_volume])]
     pd.DataFrame(datas_volume, columns=['data', 'format', 'observations']).to_csv("/eCorda_data/datas_volume.csv", sep=";", index=False, na_rep="", encoding="UTF-8")
-    logger.debug(f"****datas loaded:{counter}, datas no_load: {No_load_datas}*****")
+    logger.debug(f"***datas loaded:{counter}, datas no_load: {No_load_datas}****")

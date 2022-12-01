@@ -11,7 +11,7 @@ def get_page(url):
     return r.json()['data']
 
 def base_api(base=None, framework=None, url_ue=None):
-    SIZE=500
+    SIZE=str(500)
     url = url_ue + base + "?framework=" + framework + "&size=" + SIZE
     r = requests.get(url, headers=get_headers())
 

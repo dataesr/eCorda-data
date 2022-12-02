@@ -10,13 +10,12 @@ os.system(f'mkdir -p /eCorda_data')
 def extraction_all(framework, liste_datas, url_ue):
     counter=0
     datas_volume=[]
+    datas_empty=[]
     for b in liste_datas:   
         result = base_api(base=b, framework=framework, url_ue=url_ue)
-    
+        b = b.replace("/", "_")
+
         if result:
-
-            b = b.replace("/", "_")
-
             # create Json    
             unique = []
             [unique.append(r) for r in result if r not in unique]
@@ -43,7 +42,10 @@ def extraction_all(framework, liste_datas, url_ue):
                 logger.debug(df.to_dict(orient='records'))
             counter+=1
 
+        else:
+            datas_empty.append(b)
 
-    No_load_datas = [i for i in liste_datas if i not in set([x[0] for x in datas_volume])]
+    # No_load_datas -> remove datas_empty from liste_datas and compare with datas_volume
+    No_load_datas = [i for i in [i for i in liste_datas if i.replace("/", "_") not in datas_empty] if i.replace("/", "_") not in set([x[0] for x in datas_volume])]
     pd.DataFrame(datas_volume, columns=['data', 'format', 'observations']).to_csv("/eCorda_data/datas_volume.csv", sep=";", index=False, na_rep="", encoding="UTF-8")
-    logger.debug(f"***datas loaded:{counter}, datas no_load: {No_load_datas}****")
+    logger.debug(f"***datas loaded:{counter}, datas no load: {No_load_datas}****")

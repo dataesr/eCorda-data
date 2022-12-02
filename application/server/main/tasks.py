@@ -32,11 +32,11 @@ def create_task_eCorda() -> None:
                 'projects/payments',
                 'projects/reporting/formC',
                 'projects/reporting/iprs',
-                'projects/reporting/publications'
                 'projects/euroSciVocTaxonomy',
                 'legalEntities',
                 'legalEntitiesDepartments',
-                'legalEntitiesLinks'
+                'legalEntitiesLinks',
+                'projects/reporting/publications'
                 ]
 
     extraction_all('HORIZON', LIST_DATA, URL)

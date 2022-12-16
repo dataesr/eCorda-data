@@ -9,43 +9,20 @@ os.system(f'mkdir -p /eCorda_data')
 
 def extraction_all(framework, liste_datas, url_ue):
     counter=0
-    datas_volume=[]
+    datas_load=[]
     datas_empty=[]
     for b in liste_datas:   
         result = base_api(base=b, framework=framework, url_ue=url_ue)
         b = b.replace("/", "_")
 
         if result:
-            # create Json    
-            unique = []
-            [unique.append(r) for r in result if r not in unique]
-            filename = f'/eCorda_data/{b}.json'    
-            with open(filename, 'w') as file:
-                file.write(json.dumps(unique, indent=4))
-            datas_volume.append([b, 'json', len(unique)])
+            with open('/eCorda_data/'+b+'.json','w') as file:
+                file.write(json.dumps(result, indent=4))
+            datas_load.append(b)
             counter+=1
-
-            # créate CSV
-            df = pd.json_normalize(result)
-            list_in_df = df.applymap(lambda x: isinstance(x, list)).all()
-            if list_in_df.index[list_in_df].tolist():
-                for e in list_in_df.index[list_in_df].tolist():
-                    for i, row in df.iterrows():
-                        df.at[i , e] = ";".join(str(k) for k in row[e] if k is not None)
-
-            df = df.drop_duplicates()
-            filename = f'/eCorda_data/{b}.csv'
-            df.to_csv(filename, sep=";", index=False, na_rep="", encoding="UTF-8")
-            datas_volume.append([b, 'csv',len(df)])
-            logger.debug(f'writing {filename}')
-            if 'extractionDate' in filename:
-                logger.debug(df.to_dict(orient='records'))
-            counter+=1
-
         else:
             datas_empty.append(b)
-
-    # No_load_datas -> remove datas_empty from liste_datas and compare with datas_volume
-    No_load_datas = [i for i in [i for i in liste_datas if i.replace("/", "_") not in datas_empty] if i.replace("/", "_") not in set([x[0] for x in datas_volume])]
-    pd.DataFrame(datas_volume, columns=['data', 'format', 'observations']).to_csv("/eCorda_data/datas_volume.csv", sep=";", index=False, na_rep="", encoding="UTF-8")
-    logger.debug(f"***datas loaded:{counter}, datas no load: {No_load_datas}****")
+            
+    logger.debug(f'datas empty no load: {datas_empty}') 
+    No_load_datas = [i for i in liste_datas if (i.replace("/", "_") not in datas_empty) & (i.replace("/", "_") not in datas_load)]
+    logger.debug(f'datas no load because prob: {No_load_datas}')                          

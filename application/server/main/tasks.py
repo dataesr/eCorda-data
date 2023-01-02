@@ -48,7 +48,7 @@ def create_task_eCorda() -> None:
     extraction_all('HORIZON', LIST_DATA, URL)
     create_csv_json('HORIZON', LIST_DATA)
 
-    filename_prefix = 'HE_'
+    filename_prefix = '63b2a156553ff7622a1eb5e6/HE_'
     extension_liste = ['.csv', '.json']
     for ext in extension_liste:
         zip_filename    = f'{filename_prefix}{extractionDate}{ext}.zip'
@@ -57,5 +57,5 @@ def create_task_eCorda() -> None:
         zip_create(zip_filename, ext)
         os.system(f'cp {zip_filename} {latest_filename}')
     
-        upload_object('eCorda', zip_filename)
-        upload_object('eCorda', latest_filename)
+        upload_object(os.getenv('OS_CONTAINER'), zip_filename)
+        upload_object(os.getenv('OS_CONTAINER'), latest_filename)

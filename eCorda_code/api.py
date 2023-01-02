@@ -33,5 +33,5 @@ def base_api(base=None, framework=None, url_ue=None):
             result += get_page(url1)
             logger.debug(f'{page}') 
 
-    logger.debug(f"***{page_max-page} pages de différence, end request {time.strftime('%H:%M:%S')}***") 
+            logger.debug(f"***{page_max-page} pages de différence, end request {time.strftime('%H:%M:%S')}***") 
     return result

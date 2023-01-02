@@ -28,6 +28,9 @@ services:
       - eCorda-network
     depends_on:
       - redis
+    volumes:
+      - "/etc/timezone:/etc/timezone:ro"
+      - "/etc/localtime:/etc/localtime:ro"
 
   web:
     build: .

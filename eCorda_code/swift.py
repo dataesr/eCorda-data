@@ -1,9 +1,8 @@
 import gzip
 import os
-import pandas as pd
 import swiftclient
 
-from io import BytesIO, TextIOWrapper
+
 from retry import retry
 
 from application.server.main.logger import get_logger
@@ -26,7 +25,8 @@ init_cmd = f"swift --os-auth-url https://auth.cloud.ovh.net/v3 --auth-version 3 
 
 @retry(delay=2, tries=50)
 def upload_object(container: str, filename: str) -> str:
-    object_name = filename.split('/')[-1]
+    # object_name = filename.split('/')[-1]
+    object_name=f"{os.getenv('CARTABLE_ID')}/{filename.split('/')[-1]}"
     logger.debug(f'Uploading {filename} in {container} as {object_name}')
     cmd = init_cmd + f' upload {container} {filename} --object-name {object_name}' \
                      f' --segment-size 1048576000 --segment-threads 100'

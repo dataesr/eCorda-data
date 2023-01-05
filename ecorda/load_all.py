@@ -1,7 +1,7 @@
 import os, json
 import pandas as pd
-from eCorda_code.api import base_api
-from application.server.main.logger import get_logger
+from ecorda.api import base_api
+from utils.logger import get_logger
 
 logger = get_logger(__name__)
 

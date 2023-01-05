@@ -1,7 +1,7 @@
 import os, json
 from pathlib import Path
 import pandas as pd
-from application.server.main.logger import get_logger
+from utils.logger import get_logger
 
 logger = get_logger(__name__)
 
@@ -16,12 +16,10 @@ def create_csv_json(framework, liste_datas):
                 result = json.load(file)
 
         # create Json    
-        unique = []
-        [unique.append(r) for r in result if r not in unique]
         filename = f'/eCorda_data/{b}.json'    
         with open(filename, 'w') as file:
-            file.write(json.dumps(unique, indent=4))
-        datas_volume.append([b, 'json', len(unique)])
+            file.write(json.dumps(result, indent=4))
+        datas_volume.append([b, 'json', len(result)])
         counter+=1
 
         # créate CSV
@@ -32,10 +30,9 @@ def create_csv_json(framework, liste_datas):
                 for i, row in df.iterrows():
                     df.at[i , e] = ";".join(str(k) for k in row[e] if k is not None)
 
-        df = df.drop_duplicates()
         filename = f'/eCorda_data/{b}.csv'
         df.to_csv(filename, sep=";", index=False, na_rep="", encoding="UTF-8")
-        datas_volume.append([b, 'csv',len(df)])
+        datas_volume.append([b, 'csv', len(df)])
         
         if 'extractionDate' in filename:
             logger.debug(df.to_dict(orient='records'))

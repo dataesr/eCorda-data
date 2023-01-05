@@ -1,5 +1,5 @@
 import json, requests, time, pandas as pd
-from eCorda_code.token_api import get_headers
+from ecorda.token_api import get_headers
 
 def NewDate(framework, url_ue):
     url = url_ue+"extractionDate"

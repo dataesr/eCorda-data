@@ -1,8 +1,7 @@
 import os
 import boto3
 from retry import retry
-from io import BytesIO, TextIOWrapper
-from application.server.main.logger import get_logger
+from utils.logger import get_logger
 
 client = boto3.client(
     's3',
@@ -16,7 +15,7 @@ logger = get_logger(__name__)
 
 @retry(delay=2, tries=50, logger=logger)
 def upload_object(container: str, filename: str) -> str:
-    object_name = f"{os.getenv('CARTABLE_ID')}/{filename.split('/')[-1]}"
+    object_name = f"{os.getenv('CARTABLE_FOLDER_ID')}/{filename.split('/')[-1]}"
     logger.debug(f'Uploading {filename} in {container} as {object_name}')
     data = open(f'{filename}', 'rb')
   

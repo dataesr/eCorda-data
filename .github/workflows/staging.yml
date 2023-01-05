@@ -1,0 +1,24 @@
+name: Staging deployment
+
+on:
+  push:
+    branches:
+      - staging
+
+jobs:
+  publish-ghcr:
+    name: Publish docker image
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Log into registry
+        run: docker login ghcr.io -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build image
+        run: docker build -t ecorda .
+
+      - name: Push image
+        run: |
+          docker tag ecorda ghcr.io/ecorda:staging
+          docker push ghcr.io/ecorda:staging

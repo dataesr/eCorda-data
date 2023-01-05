@@ -16,15 +16,7 @@ jobs:
         run: docker login ghcr.io -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build image
-        run: docker build -t ecorda .
-
-      - name: Get Tag
-        id: version
-        run: echo "tag=${GITHUB_REF#refs/heads/}" >> $GITHUB_OUTPUT
+        run: docker build -t ghcr.io/ecorda:staging .
 
       - name: Push image
-        run: |
-          IMAGE_ID=ghcr.io/ecorda
-          IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
-          docker tag ecorda $IMAGE_ID:${{ steps.version.outputs.tag }}
-          docker push $IMAGE_ID:${{ steps.version.outputs.tag }}
+        run: docker push ghcr.io/ecorda:staging

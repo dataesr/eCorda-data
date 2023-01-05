@@ -16,7 +16,11 @@ jobs:
         run: docker login ghcr.io -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build image
-        run: docker build -t ghcr.io/ecorda:staging .
+        run: docker build -t ecorda .
 
       - name: Push image
-        run: docker push ghcr.io/ecorda:staging
+        run: |
+          IMAGE_ID=ghcr.io/${{ github.repository }}
+          IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
+          docker tag ecorda $IMAGE_ID:staging
+          docker push $IMAGE_ID:staging

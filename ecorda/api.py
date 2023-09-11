@@ -40,6 +40,6 @@ def base_api(base=None, framework=None, url_ue=None):
             logger.debug(f'{page}') 
         logger.debug(f'Total records: {tot_records} // Nombre de résultats: {len(result)}') 
 
-         if tot_records != len(result):
-             raise Exception('matching records faild')
+    if tot_records != len(result):
+        raise Exception('matching records faild')
     return result

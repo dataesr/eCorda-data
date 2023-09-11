@@ -33,17 +33,13 @@ def base_api(base=None, framework=None, url_ue=None):
         logger.debug('1') 
     else:
         logger.debug(f'***{base} -> totalRecords:{r.json().get("metadata").get("totalRecords")}, totalPage:{page_max}, start request:{time.strftime("%H:%M:%S")}')
-        for page in range(1, page_max):
+        for page in range(1, page_max+1):
             url1 = url_ue + base + "?framework=" + framework + "&page=" + str(page) + "&size=" + SIZE
             time.sleep(0.2)
             result += get_page(url1)
             logger.debug(f'{page}') 
-        ### Get last page with last_page_size
-        last_page_url = url_ue + base + "?framework=" + framework + "&page=" + str(page_max + 1) + "&size=" + str(last_page_size)
-        time.sleep(0.2)
-        result += get_page(last_page_url)
-        logger.debug(f'Dernière page: {page_max}') 
         logger.debug(f'Total records: {tot_records} // Nombre de résultats: {len(result)}') 
 
-        logger.debug(f"***{page_max-page} pages de différence, end request {time.strftime('%H:%M:%S')}***") 
+         if tot_records != len(result):
+             raise Exception('matching records faild')
     return result

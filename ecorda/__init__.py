@@ -41,9 +41,9 @@ def run_ecorda_pipeline() -> None:
                  'projects/euroSciVocTaxonomy',
                  'projects/reporting/publications',
                  'projects/hrpResult',
+                 'projects/cascadingProjects',
+                 'projects/participants/cascadingParticipants',
                  # 'projects/innovationRadar',
-                 #  'projects/cascadingProjects',
-                 #  'projects/participants/cascadingParticipants',
                  #  'projects/datasets'
                  ]
 

@@ -44,8 +44,8 @@ def run_ecorda_pipeline() -> None:
         'projects/hrpResult',
         'projects/participants/cascadingParticipants',
         'projects/cascadingProjects',
-        'projects/innovationRadar',
-        'projects/datasets'
+        # 'projects/innovationRadar',
+        # 'projects/datasets'
     ]
 
     extraction_all('HORIZON', LIST_DATA, URL)

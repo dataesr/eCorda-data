@@ -7,7 +7,7 @@ from utils.logger import get_logger
 
 logger = get_logger(__name__)
 
-PAGE_SIZE = 100
+PAGE_SIZE = 500
 
 
 @retry(delay=50, tries=25)

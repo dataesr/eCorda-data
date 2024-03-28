@@ -1,6 +1,5 @@
 import os
 import json
-import pandas as pd
 from ecorda.api import base_api
 from utils.logger import get_logger
 
@@ -26,9 +25,9 @@ def extraction_all(framework, liste_datas, url_ue):
                 datas_empty.append(b)
         except Exception as e:
             logger.error(f'Error in table {b}: {e}')
-            datas_errors.append([b, e.message])
+            datas_errors.append([b, e])
 
     logger.debug(f'Enpty tables: {datas_empty.join(",")}')
     logger.debug(f'Loaded tables: {datas_load.join(",")}')
     logger.debug(f'Error: {datas_errors}')
-    logger.debug(f'Job done! ')
+    return datas_load, datas_empty, datas_errors

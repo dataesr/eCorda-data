@@ -48,7 +48,8 @@ def run_ecorda_pipeline() -> None:
         # 'projects/datasets'
     ]
 
-    extraction_all('HORIZON', LIST_DATA, URL)
+    datas_load, datas_empty, datas_errors = extraction_all(
+        'HORIZON', LIST_DATA, URL)
     create_csv_json('HORIZON', LIST_DATA)
 
     filename_prefix = 'HE_'
@@ -62,3 +63,5 @@ def run_ecorda_pipeline() -> None:
 
         upload_object(os.getenv('S3_CONTAINER'), zip_filename)
         upload_object(os.getenv('S3_CONTAINER'), latest_filename)
+
+    return datas_load, datas_empty, datas_errors

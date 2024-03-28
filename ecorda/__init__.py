@@ -43,9 +43,9 @@ def run_ecorda_pipeline() -> None:
         'projects/reporting/publications',
         'projects/hrpResult',
         'projects/participants/cascadingParticipants',
-        # 'projects/cascadingProjects',
-        # 'projects/innovationRadar',
-        # 'projects/datasets'
+        'projects/cascadingProjects',
+        'projects/innovationRadar',
+        'projects/datasets'
     ]
 
     datas_load, datas_empty, datas_errors = extraction_all(

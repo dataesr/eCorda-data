@@ -10,7 +10,7 @@ logger = get_logger(__name__)
 PAGE_SIZE = 500
 
 
-@retry(delay=50, tries=25)
+@retry(delay=10, tries=4)
 def get_page(url):
     try:
         r = requests.get(url, headers=get_headers())

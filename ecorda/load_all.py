@@ -27,7 +27,10 @@ def extraction_all(framework, liste_datas, url_ue):
             logger.error(f'Error in table {b}: {e}')
             datas_errors.append([b, e])
 
-    logger.debug(f'Enpty tables: {datas_empty.join(",")}')
-    logger.debug(f'Loaded tables: {datas_load.join(",")}')
-    logger.debug(f'Error: {datas_errors}')
+    try:
+        logger.debug(f'Enpty tables: {datas_empty}')
+        logger.debug(f'Loaded tables: {datas_load}')
+        logger.debug(f'Error: {datas_errors}')
+    except Exception as e:
+        logger.error(f'Error in logging: {e}')
     return datas_load, datas_empty, datas_errors

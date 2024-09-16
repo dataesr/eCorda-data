@@ -16,37 +16,41 @@ def run_ecorda_pipeline() -> None:
     URL = os.getenv('ECORDA_ENDPOINT')
     extractionDate = NewDate('HORIZON', URL)
     logger.debug(f'extractionDate : {extractionDate}')
-    LIST_DATA = [
-        'extractionDate',
-        'countries',
-        'eurostatNuts',
-        'calls',
-        'topics',
-        'topicLbDivisions',
-        'typeOfActions',
-        'typeOfActionsAttributes',
-        'proposals',
-        'proposals/applicants',
-        'proposals/applicants/departments',
-        'proposals/keywords',
-        'projects',
-        'projects/participants',
-        'projects/principalInvestigators',
-        'projects/participants/departments',
-        'legalEntities',
-        'legalEntitiesDepartments',
-        'legalEntitiesLinks',
-        'projects/payments',
-        'projects/reporting/formC',
-        'projects/reporting/iprs',
-        'projects/euroSciVocTaxonomy',
-        'projects/reporting/publications',
-        'projects/hrpResult',
-        'projects/participants/cascadingParticipants',
-        'projects/cascadingProjects',
-        'projects/innovationRadar',
-        'projects/datasets'
-    ]
+
+    LIST_DATA = ['extractionDate',
+                'countries',
+                'eurostatNuts',
+                'calls',
+                'topics',
+                'topicLbDivisions',
+                'typeOfActions',
+                'typeOfActionsAttributes',
+                'eit',
+                'proposals',
+                'proposals/applicants',
+                'proposals/applicants/departments',
+                'proposals/keywords',
+                'projects',
+                'projects/participants',
+                'projects/principalInvestigators',
+                'projects/participants/departments',
+                'legalEntities',
+                'legalEntitiesDepartments',
+                'legalEntitiesLinks',
+                'projects/payments',
+                'projects/reporting/formC',
+                'projects/reporting/iprs',
+                'projects/euroSciVocTaxonomy',
+                'projects/reporting/publications',
+                'projects/hrpResult',
+                'projects/innovationRadar',
+                'projects/cascadingProjects',
+                'projects/participants/cascadingParticipants',
+                'projects/datasets',
+                 'correctionMechanism',
+                 'topicMetadata'
+                ]
+
 
     datas_load, datas_empty, datas_errors = extraction_all(
         'HORIZON', LIST_DATA, URL)

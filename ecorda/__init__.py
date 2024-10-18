@@ -47,8 +47,11 @@ def run_ecorda_pipeline() -> None:
                 'projects/cascadingProjects',
                 'projects/participants/cascadingParticipants',
                 'projects/datasets',
-                 'correctionMechanism',
-                 'topicMetadata'
+                'correctionMechanism',
+                'topicMetadata',
+                'proj_cr_fstp_beneficiaries',
+                'proj_cr_fstp_sub_calls'
+                'eic_fund_portfolio'
                 ]
 
 

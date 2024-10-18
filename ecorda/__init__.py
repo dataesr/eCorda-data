@@ -50,7 +50,7 @@ def run_ecorda_pipeline() -> None:
                 'correctionMechanism',
                 'topicMetadata',
                 'proj_cr_fstp_beneficiaries',
-                'proj_cr_fstp_sub_calls'
+                'proj_cr_fstp_sub_calls',
                 'eic_fund_portfolio'
                 ]
 

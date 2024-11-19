@@ -37,7 +37,7 @@ def run_ecorda_pipeline() -> None:
                 'projects/principalInvestigators',
                 'projects/participants/departments',
                 'projects/projectCrFstpBeneficiaries',
-                'projects/projectCrFstpSubCalls'
+                'projects/projectCrFstpSubCalls',
                 'legalEntities',
                 'legalEntitiesDepartments',
                 'legalEntitiesLinks',

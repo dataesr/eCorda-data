@@ -25,15 +25,19 @@ def run_ecorda_pipeline() -> None:
                 'topicLbDivisions',
                 'typeOfActions',
                 'typeOfActionsAttributes',
-                'eit',
                 'proposals',
                 'proposals/applicants',
                 'proposals/applicants/departments',
+                'proposals/cascadingProposals',
+                'proposals/applicants/cascadingApplicants',
+                'proposals/eicFundPortfolio',
                 'proposals/keywords',
                 'projects',
                 'projects/participants',
                 'projects/principalInvestigators',
                 'projects/participants/departments',
+                'projects/projectCrFstpBeneficiaries',
+                'projects/projectCrFstpSubCalls'
                 'legalEntities',
                 'legalEntitiesDepartments',
                 'legalEntitiesLinks',
@@ -48,10 +52,7 @@ def run_ecorda_pipeline() -> None:
                 'projects/participants/cascadingParticipants',
                 'projects/datasets',
                 'correctionMechanism',
-                'topicMetadata',
-                'proj_cr_fstp_beneficiaries',
-                'proj_cr_fstp_sub_calls',
-                'eic_fund_portfolio'
+                'topicMetadata'
                 ]
 
 

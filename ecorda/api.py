@@ -26,7 +26,7 @@ def base_api(base=None, framework=None, url_ue=None):
     r = requests.get(url, headers=get_headers())
 
     tot_records = r.json().get("metadata").get("totalRecords")
-    page_max = r.json().get("metadata").get("lastPage")
+    page_max = int(r.json().get("metadata").get("lastPage") or 0)
     # last_page_size = tot_records % PAGE_SIZE
 
     started_at = time.strftime("%H:%M:%S")

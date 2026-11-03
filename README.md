@@ -5,3 +5,5 @@
 - Collect all Horizon databases by API
 - Convert to CSV format
 - Save CSV and JSON files in a zip
+
+To restart a job, see documentation here : https://github.com/dataesr/deployments#ecorda-data
